@@ -1,0 +1,15 @@
+{
+  "name": "pixi",
+  "version": "1.0.0",
+  "description": "pixi example",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roberto Morgado",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "resource-loader": "^2.0.0"
+  }
+}
