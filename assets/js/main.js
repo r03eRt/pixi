@@ -86,8 +86,6 @@
 	//dungeon = new Sprite(resources[baseUrl + 'treasureHunter.json'].textures['dungeon.png']);
 	//stage.addChild(dungeon);
 
-
-
 	// Access with loader Resource
 	explorer = new Sprite(resources[baseUrl + 'treasureHunter.json'].textures['explorer.png']);
 	explorer.x = 68;
@@ -95,7 +93,6 @@
 	//Center the explorer vertically
 	explorer.y = stage.height / 2 - explorer.height / 2;
 	stage.addChild(explorer);
-
 
 	// Create a option alias id for avoid large naming
 	id = PIXI.loader.resources[baseUrl + "treasureHunter.json"].textures;
@@ -108,12 +105,51 @@
 	treasure.y = stage.height / 2 - treasure.height / 2;
 	stage.addChild(treasure);
 
+	// Added door to the stage
+	door = new Sprite(id['door.png']);
+	stage.addChild(door);
+	door.position.set(32, 0);
+
+	var numberOfBlobbs = 6,
+			spacing = 48,
+			xOffset = 150;
+
+	for (var i = 0; i < numberOfBlobbs; i++) {
+
+			// Make a bloob
+			var blob = new Sprite(id['blob.png']);
+
+			//Space each blob horizontally according to the `spacing` value.
+	    //`xOffset` determines the point from the left of the screen
+	    //at which the first blob should be added.
+	    var x = spacing * i + xOffset;
+
+			//Give the blob a random y position
+	    //(`randomInt` is a custom function - see below)
+	    var y = randomInt(0, stage.height - blob.height);
+
+			//Set the blob's position
+	    blob.x = x;
+	    blob.y = y;
+
+	    //Add the blob sprite to the stage
+	    stage.addChild(blob);
+
+	}
+
+
+
 
 
 	renderer.render(stage);
 
 
 
+	}
+
+	//The `randomInt` helper function
+	function randomInt(min, max) {
+	  return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
 
