@@ -16,7 +16,7 @@
 
 
 	// Create a renderer
-	var renderer = autoDetectRenderer(256, 256);
+	var renderer = autoDetectRenderer(512, 512);
 
 	// Add the canvas to the html document
 	document.body.appendChild(renderer.view);
@@ -27,30 +27,18 @@
 
 	// Load the resources and then init setup
 	loader
-		.add(baseUrl + 'titleset.png')
+		.add(baseUrl + 'treasureHunter.json')
 		.load(setup);
+
+
+
+		//Define variables that might be used in more
+		//than one function
+		var dungeon, explorer, treasure, door, id;
 
 
 	// Setup function will run when img loaded
 	function setup(){
-
-		// create the texture
-		var texture = TextureCache[baseUrl + 'titleset.png'];
-
-		//Create a rectangle object that defines the position and
-		//size of the sub-image you want to extract from the texture
-		var rectangle = new PIXI.Rectangle(192, 128, 64, 64);
-
-		// telkl the texture to use the rectangle section
-		console.log(texture);
-		texture.frame = rectangle;
-
-		// Now we can set the the sprite from the recture
-		var rocket = new Sprite(texture);
-		rocket.x = 32;
-	  rocket.y = 32;
-
-
 
 		// Set sprite position on stage
 		//cat.x = 96;
@@ -87,29 +75,45 @@
 		//cat.pivot.set(32, 32)
 
 
-		// Add the cat to the stage
-		stage.addChild(rocket);
+	// Three types of charge texture from json
 
-		//Render the stage
-		renderer.render(stage);
+	// Access directly to texture cache
+	var dungeonTexture = TextureCache["dungeon.png"];
+  dungeon = new Sprite(dungeonTexture);
+  stage.addChild(dungeon);
 
-		var el = document.querySelector(".hide");
-
-	/**	el.addEventListener('click', function(){
-
-			if(this.classList.contains('hidden')){
-				this.classList.remove('hidden');
-				stage.addChild(cat);
-				renderer.render(stage);
-			}else{
-				this.classList.add('hidden');
-				stage.removeChild(cat);
-				renderer.render(stage);
-			}
+	// Other form
+	//dungeon = new Sprite(resources[baseUrl + 'treasureHunter.json'].textures['dungeon.png']);
+	//stage.addChild(dungeon);
 
 
-		});
-		**/
+
+	// Access with loader Resource
+	explorer = new Sprite(resources[baseUrl + 'treasureHunter.json'].textures['explorer.png']);
+	explorer.x = 68;
+
+	//Center the explorer vertically
+	explorer.y = stage.height / 2 - explorer.height / 2;
+	stage.addChild(explorer);
+
+
+	// Create a option alias id for avoid large naming
+	id = PIXI.loader.resources[baseUrl + "treasureHunter.json"].textures;
+
+	treasure = new Sprite(id['treasure.png']);
+	stage.addChild(treasure);
+
+	//Position the treasure next to the right edge of the canvas
+	treasure.x = stage.width - treasure.width - 48;
+	treasure.y = stage.height / 2 - treasure.height / 2;
+	stage.addChild(treasure);
+
+
+
+	renderer.render(stage);
+
+
+
 	}
 
 
